@@ -2,7 +2,7 @@ import mysql.connector
 mydb = mysql.connector.connect(
 host="localhost",
 user="root",
-password="",
+password="#alex2005",
 database="HANGMAN_PROJECT"
 )
 def register(Name,User_id,Password):
@@ -78,7 +78,11 @@ def hangman_graphic(guesses):
             print("|     / \     ")
             print("|             ")
             print("GAME OVER!")
-
+def stat_formatter(stats):
+    print("Games played:",stats[4])
+    print("Wins:",stats[5])
+    print("Losses",stats[6])
+    print("Win percentage",stats[7])
 def update(game_status,stats):
     if game_status==0:
         stats[4]+=1
@@ -145,7 +149,7 @@ def progress_updater(guess,word,progress):
     return progress
 
 while True:
-    print("Welcome to Hangman:")
+    print("[bold blue]Welcome to Hangman:[/bold blue]")
     ch=int(input("Would you like to sign up(!) or login(2) for saving stats or play as a guest(3)?"))
     if ch==1:
         name=input("Enter your name:")
@@ -166,16 +170,18 @@ while True:
             continue
         else:
             stats=list(login(user_id,pwd)[0])
-            print(stats)
         break
     elif ch==3:
         print("Warning your stats wont be saved")
-        ch2=print("Would you like to make an account or login")
-        if ch2==1:
+        c=int(input("Would you like to make an account or login or continue"))
+        if c==1:
             continue
-        else:
+        elif c==2:
             stats=['#', 'Guest', 'guest', 'guest', 0, 0, 0, 0.0 ]
             break
+        else:
+            print("Invalid input")
+            continue
     else:
         print("try again")
         continue
@@ -184,14 +190,13 @@ while True:
     if ch2==1:
         game_status=core_game()
         print(game_status)
-        print(stats)
         stats=update(game_status,stats)
-        print("Your new stats are:",stats)
-        update_db(stats)
-        
+        print("Your new stats are:")
+        stat_formatter(stats)
+        update_db(stats) 
         continue
     elif ch2==2:
-        print(stats)
+        stat_formatter
         continue
     elif ch2==3:
         break
