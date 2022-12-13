@@ -1,0 +1,2 @@
+Look into colour terminal
+admin dash for sql commands
