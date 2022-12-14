@@ -106,11 +106,20 @@ def update_db(stats):
 def core_game():
     guesses=0
     letters_used=[]
-    word="test"
-    progress = ["?"]*len(word)
+    word_full="God of War"
+    word=word_full.lower()
+    progress=[]
+    for letter in word:
+        if letter!=" ":
+            progress.append("?")
+        else:
+            progress.append(" ")
+
+    print(progress)
     game_status=0
     while guesses<6:
         guess=input("Enter letter")
+        guess=guess.lower()
         if len(guess)>1:
             print("Too many letters")
             continue
@@ -118,7 +127,7 @@ def core_game():
             print("correct")
             letters_used.append(guess)
             hangman_graphic(guesses)
-            progress=progress_updater(guess,word,progress)
+            progress=progress_updater(guess,word,progress,word_full)
             print("progress:"+"".join(progress))
             print("Letters used:"+",".join(letters_used))
             if "?" not in progress:
@@ -130,7 +139,7 @@ def core_game():
             print("Wrong")
             letters_used.append(guess)
             hangman_graphic(guesses)
-            progress=progress_updater(guess,word,progress)
+            progress=progress_updater(guess,word,progress,word_full)
             print("progress:"+"".join(progress))
             print("Letters used:"+",".join(letters_used))
         else:
@@ -138,18 +147,18 @@ def core_game():
             print("try again")
     return game_status
 
-def progress_updater(guess,word,progress):
+def progress_updater(guess,word,progress,word_full):
     i=0
     while i<len(word):
         if guess==word[i]:
-            progress[i]=guess
+            progress[i]=word_full[i]
             i+=1
         else:
             i+=1
     return progress
 
 while True:
-    print("[bold blue]Welcome to Hangman:[/bold blue]")
+    print("Welcome to Hangman:")
     ch=int(input("Would you like to sign up(!) or login(2) for saving stats or play as a guest(3)?"))
     if ch==1:
         name=input("Enter your name:")
@@ -196,7 +205,7 @@ while True:
         update_db(stats) 
         continue
     elif ch2==2:
-        stat_formatter
+        stat_formatter(stats)
         continue
     elif ch2==3:
         break
