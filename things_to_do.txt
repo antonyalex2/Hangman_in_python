@@ -1,2 +1,5 @@
 Look into colour terminal
 admin dash for sql commands
+random function for words
+also group words into genres
+
