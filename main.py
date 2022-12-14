@@ -157,62 +157,79 @@ def progress_updater(guess,word,progress,word_full):
             i+=1
     return progress
 
-while True:
-    print("Welcome to Hangman:")
-    ch=int(input("Would you like to sign up(!) or login(2) for saving stats or play as a guest(3)?"))
-    if ch==1:
-        name=input("Enter your name:")
-        user_id=input("Enter username:")
-        pwd=input("Enter password:")
-        a=register(name,user_id,pwd)
-        if a==0:
-            print("please sign in now")
-            continue
-        elif a==1:
-            continue
-    elif ch==2:
-        user_id=input("Enter your userid")
-        pwd=input("Enter your pwd")
-        s=login(user_id,pwd)
-        if len(s)==0:
-            print("Invalid username or password Please try again.If you do not have an account Please make one before attempting to log in")
-            continue
-        else:
-            stats=list(login(user_id,pwd)[0])
-        break
-    elif ch==3:
-        print("Warning your stats wont be saved")
-        c=int(input("Would you like to make an account or login or continue"))
-        if c==1:
-            continue
-        elif c==2:
-            stats=['#', 'Guest', 'guest', 'guest', 0, 0, 0, 0.0 ]
+global stats
+def game_execute():   
+    while True:
+        print("[bold blue]Welcome to Hangman:[/bold blue]")
+        ch=int(input("Would you like to sign up(1) or login(2) for saving stats or play as a guest(3) or exit(4)?"))
+        if ch==1:
+            name=input("Enter your name:")
+            user_id=input("Enter username:")
+            pwd=input("Enter password:")
+            a=register(name,user_id,pwd)
+            if a==0:
+                print("please sign in now")
+                continue
+            elif a==1:
+                continue
+        elif ch==2:
+            user_id=input("Enter your userid")
+            pwd=input("Enter your pwd")
+            s=login(user_id,pwd)
+            if len(s)==0:
+                print("Invalid username or password Please try again.If you do not have an account Please make one before attempting to log in")
+                continue
+            else:
+                stats=list(login(user_id,pwd)[0])
             break
+        elif ch==3:
+            #issue
+            print("Warning! Your stats wont be saved")
+            c=int(input("Would you like to go back(1) or continue(2)"))
+            print(c)
+            if c==1:
+                print("going back")
+                continue
+            elif c==2:
+                print("continuing")
+                stats=['#', 'Guest', 'guest', 'guest', 0, 0, 0, 0.0 ]
+                break
+            else:
+                print("Invalid input")
+                continue
+        
+        elif ch==4:
+            print("Exitting now")
+            exit()
+        else:
+            print("try again")
+            continue
+    while True:
+        ch2=int(input("Would you like to play or see stats or exit or go to home screen"))
+        if ch2==1:
+            game_status=core_game()
+            print(game_status)
+            stat_formatter(stats)
+            stats=update(game_status,stats)
+            print("Your new stats are:",stats)
+            update_db(stats) 
+            continue
+        elif ch2==2:
+            stat_formatter(stats)
+            print("Games played:",stats[4])
+            print("Wins:",stats[5])
+            print("Losses",stats[6])
+            print("Win percentage",stats[7])
+
+            continue
+        elif ch2==3:
+            break
+        elif ch2==4:
+            game_execute()
         else:
             print("Invalid input")
             continue
-    else:
-        print("try again")
-        continue
-while True:
-    ch2=int(input("Would you like to play or see stats or exit"))
-    if ch2==1:
-        game_status=core_game()
-        print(game_status)
-        stats=update(game_status,stats)
-        print("Your new stats are:")
-        stat_formatter(stats)
-        update_db(stats) 
-        continue
-    elif ch2==2:
-        stat_formatter(stats)
-        continue
-    elif ch2==3:
-        break
-    else:
-        print("Invalid input")
-        continue
-
+game_execute()
 
 
 
