@@ -3,7 +3,7 @@ import random
 mydb = mysql.connector.connect(
 host="localhost",
 user="root",
-password="#alex2005",
+password="",
 database="HANGMAN_PROJECT"
 )
 def register(Name,User_id,Password):
