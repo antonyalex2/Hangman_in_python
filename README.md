@@ -1,7 +1,7 @@
 # Hangman_in_python
 Through this project I have attempted to make a digital version of the popular pen and paper game,Hangman. 
 
-Using MySQL for the backend and Python for the frontend, I've crafted a login system that empowers users with three distinct options:
+Using MySQL for the backend and Python for the frontend, I've created a login system that empowers users with three distinct options:
 
 User Registration: Newcomers can register with unique usernames and passwords, creating personalized profiles with individual game statistics.
 
