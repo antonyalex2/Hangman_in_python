@@ -11,4 +11,5 @@ Guest Mode: For a quick thrill, a guest feature allows users to enjoy the game w
 
 
 #HOW IT WORKS
-The program takes a random word from a list of 5 letter words.The result of the game (Win/Lose) is then updated in a MySQL database (structure shown below) along with other Gameplay statistics and is made available to the user on demand
+The program takes a random word from a list of 5 letter words.
+The result of the game (Win/Lose) is then updated in a MySQL database along with other Gameplay statistics and is made available to the user on demand.
